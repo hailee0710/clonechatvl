@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -14,9 +15,9 @@ import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
-    val urlGetData : String = "http://192.168.1.9/webservice/getdata.php"
+    val urlGetData : String = "http://chatvl.com/api/trending.php"
 
 
 
@@ -27,7 +28,19 @@ class MainActivity : AppCompatActivity() {
         ReadContent().execute(urlGetData)
         lvmain. adapter= CustomAdapter(this, arrayPost)
 
+        swiperefresh.setOnRefreshListener(this)
 
+
+    }
+
+    override fun onRefresh() {
+        swiperefresh.isRefreshing = true
+        arrayPost.clear()
+        ReadContent().execute(urlGetData)
+        customadapter = CustomAdapter(this, arrayPost)
+        lvmain. adapter= customadapter
+
+        swiperefresh.isRefreshing = false
     }
 
 

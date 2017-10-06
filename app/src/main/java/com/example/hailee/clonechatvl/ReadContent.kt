@@ -16,7 +16,8 @@ import kotlin.collections.ArrayList
 /**
  * Created by hailee on 03/10/17.
  */
-public var arrayPost: ArrayList<Item> = ArrayList()
+var arrayPost: ArrayList<Item> = ArrayList()
+var customadapter: CustomAdapter? = null
 
 class ReadContent: AsyncTask<String, Void, String>() {
 
@@ -52,7 +53,7 @@ class ReadContent: AsyncTask<String, Void, String>() {
         super.onPostExecute(result)
 
         var objectPosts : JSONObject = JSONObject(result)
-        var jsonArray : JSONArray = JSONArray(objectPosts.getJSONArray("posts"))
+        var jsonArray : JSONArray = objectPosts.getJSONArray("posts")
 
         var PID: Int
         var USERID: Int
@@ -60,23 +61,23 @@ class ReadContent: AsyncTask<String, Void, String>() {
         var content: String?
         var tags: String?
         var source: String?
-        var nsfw: Boolean
-        var pic: Int?
+        var nsfw: Int
+        //var pic: Int?
         var youtube_key: String
         var mecloud_key: String?
-        var url: URL
-        var timeadded: Timestamp
-        var dateadded: Date
-        var active: Boolean
+        var url: String
+        var time_added: Long
+        var date_added: String
+        var active: Int
         var phase: Int
         var favclicks: Int
-        var timeupdate: Timestamp
-        var mod_yes: Boolean
-        var mod_no: Boolean
-        var pip: URL
-        var pip2: URL?
+        var time_update: Long
+        var mod_yes: Int
+        var mod_no: Int
+        var pip: String
+        var pip2: String?
         var unfavclick: Int
-        var fix: Boolean
+        var fix: Int
         var short: String
         var likeclicks: Int
         var shareclicks: Int
@@ -91,23 +92,23 @@ class ReadContent: AsyncTask<String, Void, String>() {
             content = post.getString("content")
             tags = post.getString("tags")
             source = post.getString("source")
-            nsfw = post.getBoolean("nsfw")
-            pic = post.getInt("pic")
+            nsfw = post.getInt("nsfw")
+            //pic = post.getInt("pic")
             youtube_key = post.getString("youtube_key")
             mecloud_key = post.getString("mecloud_key")
-            url = post.get("url") as URL
-            timeadded = post.get("timeadded") as Timestamp
-            dateadded = post.get("dateadded") as Date
-            active = post.getBoolean("active")
+            url = post.getString("url")
+            time_added = post.getLong("time_added")
+            date_added = post.getString("date_added")
+            active = post.getInt("active")
             phase = post.getInt("phase")
             favclicks = post.getInt("favclicks")
-            timeupdate = post.get("timeupdate") as Timestamp
-            mod_yes = post.getBoolean("mod_yes")
-            mod_no = post.getBoolean("mod_no")
-            pip = post.get("pip") as URL
-            pip2 = post.get("pip2") as URL
-            unfavclick = post.getInt("unfavclick")
-            fix = post.getBoolean("fix")
+            time_update = post.getLong("time_update")
+            mod_yes = post.getInt("mod_yes")
+            mod_no = post.getInt("mod_no")
+            pip = post.getString("pip")
+            pip2 = post.getString("pip2")
+            unfavclick = post.getInt("unfavclicks")
+            fix = post.getInt("fix")
             short = post.getString("short")
             likeclicks = post.getInt("likeclicks")
             shareclicks = post.getInt("shareclicks")
@@ -121,16 +122,16 @@ class ReadContent: AsyncTask<String, Void, String>() {
                     tags,
                     source,
                     nsfw,
-                    pic,
+                    //pic,
                     youtube_key,
                     mecloud_key,
                     url,
-                    timeadded,
-                    dateadded,
+                    time_added,
+                    date_added,
                     active,
                     phase,
                     favclicks,
-                    timeupdate,
+                    time_update,
                     mod_yes,
                     mod_no,
                     pip,
@@ -145,6 +146,9 @@ class ReadContent: AsyncTask<String, Void, String>() {
 
 
         }
+
+        customadapter?.notifyDataSetChanged()
+
 
 
 
