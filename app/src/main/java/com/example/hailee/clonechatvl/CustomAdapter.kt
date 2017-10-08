@@ -1,6 +1,8 @@
 package com.example.hailee.clonechatvl
 
 import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +10,7 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.squareup.picasso.Picasso
 import java.sql.Timestamp
 import java.time.LocalDateTime
 import java.util.Date
@@ -52,9 +55,14 @@ class CustomAdapter(var context: Context, var arrayItem : ArrayList<Item>) : Bas
         var converttime : Long = TimeUnit.MILLISECONDS.toMinutes(timeuploaded)
         Toast.makeText(this.context, "" + converttime, Toast.LENGTH_LONG )
 
+
         viewholder.textviewStory.text = item.story
         viewholder.textviewAuthor.text = "bởi " + item.USERID + " " + converttime + " phút trước"
-        viewholder.imageviewContent.setImageResource(R.drawable.abc_btn_radio_to_on_mtrl_015)
+        Picasso.with(context)
+                .load("http://img.youtube.com/vi/${item.youtube_key}/0.jpg")
+                .resize(1000, 700)
+                .centerCrop()
+                .into(viewholder.imageviewContent)
         viewholder.textviewView.text = "Lượt xem: " + item.views + " Thích: " + item.favclicks + " Comments: " + item.comments
         return view as View
     }
