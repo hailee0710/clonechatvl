@@ -1,5 +1,7 @@
 package com.example.hailee.clonechatvl
 
+import android.app.Dialog
+import android.app.ProgressDialog
 import android.os.AsyncTask
 import android.util.Log
 import android.widget.Toast
@@ -19,10 +21,12 @@ import kotlin.collections.ArrayList
 var arrayPost: ArrayList<Item> = ArrayList()
 var customadapter: CustomAdapter? = null
 
+
 class ReadContent: AsyncTask<String, Void, String>() {
 
 
     override fun doInBackground(vararg params: String?): String? {
+
         var content : StringBuilder = StringBuilder()
         val url : URL = URL(params[0])
         val urlconnection : HttpURLConnection = url.openConnection() as HttpURLConnection
@@ -83,6 +87,8 @@ class ReadContent: AsyncTask<String, Void, String>() {
         var shareclicks: Int
         var views: Int
         var comments: Int
+        var fullname: String
+        var ttime_text: String
 
         for (i in 0..jsonArray.length()-1){
             var post : JSONObject = jsonArray.getJSONObject(i)
@@ -114,6 +120,8 @@ class ReadContent: AsyncTask<String, Void, String>() {
             shareclicks = post.getInt("shareclicks")
             views = post.getInt("views")
             comments = post.getInt("comments")
+            fullname = post.getString("fullname")
+            ttime_text = post.getString("ttime_text")
 
             arrayPost.add(Item(PID,
                     USERID,
@@ -142,7 +150,9 @@ class ReadContent: AsyncTask<String, Void, String>() {
                     likeclicks,
                     shareclicks,
                     views,
-                    comments))
+                    comments,
+                    fullname,
+                    ttime_text))
 
 
         }

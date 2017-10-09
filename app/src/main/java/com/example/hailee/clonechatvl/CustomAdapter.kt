@@ -3,6 +3,8 @@ package com.example.hailee.clonechatvl
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.text.Html
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,14 +52,13 @@ class CustomAdapter(var context: Context, var arrayItem : ArrayList<Item>) : Bas
 
         var item : Item = getItem(position) as Item
 
-        var currenttime : Long = System.currentTimeMillis()/1000
-        var timeuploaded : Long = currenttime - item.time_added
-        var converttime : Long = TimeUnit.MILLISECONDS.toMinutes(timeuploaded)
-        Toast.makeText(this.context, "" + converttime, Toast.LENGTH_LONG )
+       /* var currenttime : Long = System.currentTimeMillis()
+        var timeuploaded : Long =  (currenttime/1000) - item.time_added
+        var converttime : Long = TimeUnit.MILLISECONDS.toMinutes(timeuploaded)*/
 
 
         viewholder.textviewStory.text = item.story
-        viewholder.textviewAuthor.text = "bởi " + item.USERID + " " + converttime + " phút trước"
+        viewholder.textviewAuthor.text = "đăng bởi " + Html.fromHtml(item.fullname).toString()   + "  " + item.ttime_text
         Picasso.with(context)
                 .load("http://img.youtube.com/vi/${item.youtube_key}/0.jpg")
                 .resize(1000, 700)
