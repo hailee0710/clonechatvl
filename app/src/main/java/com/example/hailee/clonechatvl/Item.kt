@@ -1,8 +1,5 @@
 package com.example.hailee.clonechatvl
 
-import java.net.URL
-import java.sql.Timestamp
-import java.util.*
 
 /**
  * Created by hailee on 03/10/17.

@@ -1,18 +1,19 @@
 package com.example.hailee.clonechatvl
 
-import android.app.Dialog
-import android.app.ProgressDialog
+import android.app.Application
 import android.os.AsyncTask
 import android.util.Log
 import android.widget.Toast
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
+import java.io.IOException
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
+import java.net.MalformedURLException
+import java.net.ProtocolException
 import java.net.URL
-import java.sql.Timestamp
-import java.util.*
+
 import kotlin.collections.ArrayList
 
 /**
@@ -23,36 +24,42 @@ var customadapter: CustomAdapter? = null
 
 
 class ReadContent: AsyncTask<String, Void, String>() {
-
-
+    //Đọc content từ link
     override fun doInBackground(vararg params: String?): String? {
-
-        var content : StringBuilder = StringBuilder()
-        val url : URL = URL(params[0])
-        val urlconnection : HttpURLConnection = url.openConnection() as HttpURLConnection
-        val inputstreamreader : InputStreamReader = InputStreamReader(urlconnection.inputStream)
-        val bufferedreader : BufferedReader = BufferedReader(inputstreamreader)
-
+        var content: StringBuilder = StringBuilder()
         try {
 
-            var line : String? = ""
+            val url: URL = URL(params[0])
+            val urlconnection: HttpURLConnection = url.openConnection() as HttpURLConnection
+            val statusCode: Int = urlconnection.getResponseCode()
+            val inputstreamreader: InputStreamReader = InputStreamReader(urlconnection.inputStream)
+            val bufferedreader: BufferedReader = BufferedReader(inputstreamreader)
 
-            do {
-                line = bufferedreader.readLine()
-                if (line != null) {
-                    content.append(line)
-                }
-            }while (line != null)
 
-            bufferedreader.close()
+            if (statusCode == 200) {
+                var line: String? = ""
 
-        }catch (e : Exception){
+                do {
+                    line = bufferedreader.readLine()
+                    if (line != null) {
+                        content.append(line)
+                    }
+                } while (line != null)
+
+                bufferedreader.close()
+            }
+        } catch (e: Exception) {
             Log.d("aaa", e.toString())
+        } catch (e: ProtocolException) {
+            e.printStackTrace()
+        } catch (e: MalformedURLException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
-
         return content.toString()
     }
-
+    //Lấy data từ JSON Object và load vào Object Item.
     override fun onPostExecute(result: String?) {
         super.onPostExecute(result)
 

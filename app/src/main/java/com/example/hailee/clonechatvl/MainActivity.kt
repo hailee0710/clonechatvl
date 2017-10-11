@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
         ReadContent().execute(urlGetData)
         lvmain. adapter= CustomAdapter(this, arrayPost)
+        Toast.makeText(this, ""+ arrayPost, Toast.LENGTH_LONG).show()
 
         swiperefresh.setOnRefreshListener(this)
 
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         ReadContent().execute(urlGetData)
         customadapter = CustomAdapter(this, arrayPost)
         lvmain. adapter= customadapter
+        Toast.makeText(this, ""+ arrayPost, Toast.LENGTH_LONG).show()
 
         swiperefresh.isRefreshing = false
     }
