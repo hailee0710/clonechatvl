@@ -25,15 +25,25 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"/>
 
-    <ImageView
-        android:id="@+id/imContent"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="Ảnh" />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="Ảnh" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/play_btn" />
+    </FrameLayout>
     <TextView
         android:id="@+id/tvView"
         android:layout_width="match_parent"
