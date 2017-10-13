@@ -20,7 +20,6 @@ import kotlin.collections.ArrayList
  * Created by hailee on 03/10/17.
  */
 var arrayPost: ArrayList<Item> = ArrayList()
-var customadapter: CustomAdapter? = null
 
 
 class ReadContent: AsyncTask<String, Void, String>() {
@@ -164,8 +163,8 @@ class ReadContent: AsyncTask<String, Void, String>() {
 
         }
 
-        customadapter?.notifyDataSetChanged()
 
+        customadapter?.notifyDataSetChanged()
 
 
 

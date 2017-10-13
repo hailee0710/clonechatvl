@@ -1,15 +1,12 @@
 package com.example.hailee.clonechatvl
 
-
-import android.app.Dialog
-import android.app.ProgressDialog
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
-import android.util.Log
-
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+
+var customadapter: CustomAdapter? = null
 
 
 class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
@@ -19,10 +16,10 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
+        customadapter = CustomAdapter(this, arrayPost)
+        lvmain. adapter= customadapter
         ReadContent().execute(urlGetData)
-        lvmain. adapter= CustomAdapter(this, arrayPost)
+
         Toast.makeText(this, ""+ arrayPost, Toast.LENGTH_LONG).show()
 
         swiperefresh.setOnRefreshListener(this)
@@ -35,8 +32,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
         arrayPost.clear()
         ReadContent().execute(urlGetData)
-        customadapter = CustomAdapter(this, arrayPost)
-        lvmain. adapter= customadapter
+        customadapter?.notifyDataSetChanged()
         Toast.makeText(this, ""+ arrayPost, Toast.LENGTH_LONG).show()
 
         swiperefresh.isRefreshing = false
