@@ -1,1 +1,2 @@
-include ':app'
+include ':app', ':pulltorefresh-and-loadmore'
+project(':pulltorefresh-and-loadmore').projectDir = new File('libs/pulltorefresh-and-loadmore')

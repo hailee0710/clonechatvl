@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/clonechatvl.iml" filepath="$PROJECT_DIR$/clonechatvl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libs/pulltorefresh-and-loadmore/pulltorefresh-and-loadmore.iml" filepath="$PROJECT_DIR$/libs/pulltorefresh-and-loadmore/pulltorefresh-and-loadmore.iml" />
     </modules>
   </component>
 </project>
