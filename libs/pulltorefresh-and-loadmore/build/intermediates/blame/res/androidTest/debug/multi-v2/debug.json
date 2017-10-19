@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "/mnt/2800003200000990/AndroidProjects/clonechatvl/libs/pulltorefresh-and-loadmore/build/intermediates/res/merged/androidTest/debug/values_values.arsc.flat",
+            "map": [
+                {
+                    "source": "/mnt/2800003200000990/AndroidProjects/clonechatvl/libs/pulltorefresh-and-loadmore/build/intermediates/bundles/debug/res/values/values.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,95,145,186,227,273,338,412,484,564",
+                        "endColumns": "39,49,40,40,45,64,73,71,79,71",
+                        "endOffsets": "90,140,181,222,268,333,407,479,559,631"
+                    }
+                }
+            ]
+        }
+    ]
+}
