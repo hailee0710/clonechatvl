@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         //Khoi tao adapter
         customadapter = CustomAdapter(this, arrayPost)
         lvmain. adapter= customadapter
+
         //Lay data
         ReadContent().execute(urlGetData)
 
@@ -43,12 +44,12 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
 
         //su kien loadmore
-        lvmain.setOnLoadMoreListener(LoadMoreListView.OnLoadMoreListener {
-            fun onLoadMore(){
+        lvmain.setOnLoadMoreListener {
 
                 LoadDataTask().execute()
-            }
-        })
+
+
+        }
 
     }
 
