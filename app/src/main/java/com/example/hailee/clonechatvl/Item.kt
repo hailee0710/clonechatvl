@@ -32,8 +32,8 @@ data class Item(var PID: Int,
                 var shareclicks: Int,
                 var views: Int,
                 var comments: Int,
-                var fullname : String,
-                var ttime_text : String
+                var fullname: String,
+                var ttime_text: String
 
 
                 ) {

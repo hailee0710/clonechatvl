@@ -17,10 +17,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ListView
+        <com.costum.android.widget.LoadMoreListView
             android:id="@+id/lvmain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"></ListView>
+            android:clickable="true"/>
     </android.support.v4.widget.SwipeRefreshLayout>
+
+
 </LinearLayout>

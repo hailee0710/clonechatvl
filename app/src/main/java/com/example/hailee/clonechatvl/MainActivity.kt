@@ -1,11 +1,13 @@
 package com.example.hailee.clonechatvl
 
+import android.os.AsyncTask
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.support.v4.widget.SwipeRefreshLayout
 import android.widget.Toast
+import com.costum.android.widget.LoadMoreListView
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -40,19 +42,62 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
             ->  Toast.makeText(this, "Vi tri " + arrayPost.get(position).PID, Toast.LENGTH_SHORT).show()}
 
 
+        //su kien loadmore
+        lvmain.setOnLoadMoreListener(LoadMoreListView.OnLoadMoreListener {
+            fun onLoadMore(){
+
+                LoadDataTask().execute()
+            }
+        })
+
     }
 
     override fun onRefresh() {
         swiperefresh.isRefreshing = true
 
         arrayPost.clear()
+        ReadContent().execute(urlGetData)
         customadapter?.notifyDataSetChanged()
         Toast.makeText(this, ""+ arrayPost, Toast.LENGTH_LONG).show()
 
         swiperefresh.isRefreshing = false
     }
 
+    private inner class LoadDataTask : AsyncTask<Void, Void, Void>() {
 
+        override fun doInBackground(vararg params: Void?): Void? {
+            // Simulates a background task
+            if(isCancelled){
+                return null
+            }
+            try {
+                Thread.sleep(1000)
+            } catch (e: InterruptedException) {
+            }
+
+            ReadContent().execute(urlGetData)
+
+            return null
+
+        }
+
+        override fun onPostExecute(result: Void) {
+            Toast.makeText(this@MainActivity, "Loadmore completed!" , Toast.LENGTH_SHORT).show()
+
+            // We need notify the adapter that the data have been changed
+            customadapter?.notifyDataSetChanged()
+
+            // Call onLoadMoreComplete when the LoadMore task, has finished
+            lvmain.onLoadMoreComplete()
+
+            super.onPostExecute(result)
+        }
+
+        override fun onCancelled() {
+            // Notify the loading more operation has finished
+            lvmain.onLoadMoreComplete()
+        }
+    }
 
 
 

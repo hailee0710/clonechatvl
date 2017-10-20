@@ -1,9 +1,7 @@
 package com.example.hailee.clonechatvl
 
-import android.app.Application
 import android.os.AsyncTask
 import android.util.Log
-import android.widget.Toast
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
