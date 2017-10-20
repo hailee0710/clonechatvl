@@ -20,14 +20,19 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //Khoi tao adapter
         customadapter = CustomAdapter(this, arrayPost)
         lvmain. adapter= customadapter
+        //Lay data
         ReadContent().execute(urlGetData)
 
         Toast.makeText(this, ""+ arrayPost, Toast.LENGTH_LONG).show()
 
+        //Đăng ký sự kiện Swipe to refresh
         swiperefresh.setOnRefreshListener(this)
 
+        //Su kien item click listener
         lvmain.setOnItemClickListener { parent,
                                         view,
                                         position,
@@ -41,7 +46,6 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         swiperefresh.isRefreshing = true
 
         arrayPost.clear()
-        ReadContent().execute(urlGetData)
         customadapter?.notifyDataSetChanged()
         Toast.makeText(this, ""+ arrayPost, Toast.LENGTH_LONG).show()
 
