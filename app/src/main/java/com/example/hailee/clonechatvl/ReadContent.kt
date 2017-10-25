@@ -18,9 +18,11 @@ import kotlin.collections.ArrayList
  * Created by hailee on 03/10/17.
  */
 var arrayPost: ArrayList<Item> = ArrayList()
+var next_time: String = ""
 
 
 class ReadContent: AsyncTask<String, Void, String>() {
+
     //Đọc content từ link
     override fun doInBackground(vararg params: String?): String? {
         var content: StringBuilder = StringBuilder()
@@ -61,6 +63,7 @@ class ReadContent: AsyncTask<String, Void, String>() {
         super.onPostExecute(result)
 
         var objectPosts : JSONObject = JSONObject(result)
+        next_time = objectPosts.getString("next_time")
         var jsonArray : JSONArray = objectPosts.getJSONArray("posts")
 
         var PID: Int
@@ -127,36 +130,36 @@ class ReadContent: AsyncTask<String, Void, String>() {
             fullname = post.getString("fullname")
             ttime_text = post.getString("ttime_text")
 
-            arrayPost.add(Item(PID,
-                    USERID,
-                    story,
-                    content,
-                    tags,
-                    source,
-                    nsfw,
-                    //pic,
-                    youtube_key,
-                    mecloud_key,
-                    url,
-                    time_added,
-                    date_added,
-                    active,
-                    phase,
-                    favclicks,
-                    time_update,
-                    mod_yes,
-                    mod_no,
-                    pip,
-                    pip2,
-                    unfavclick,
-                    fix,
-                    short,
-                    likeclicks,
-                    shareclicks,
-                    views,
-                    comments,
-                    fullname,
-                    ttime_text))
+            arrayPost.add(Item( PID,
+                                USERID,
+                                story,
+                                content,
+                                tags,
+                                source,
+                                nsfw,
+                                //pic,
+                                youtube_key,
+                                mecloud_key,
+                                url,
+                                time_added,
+                                date_added,
+                                active,
+                                phase,
+                                favclicks,
+                                time_update,
+                                mod_yes,
+                                mod_no,
+                                pip,
+                                pip2,
+                                unfavclick,
+                                fix,
+                                short,
+                                likeclicks,
+                                shareclicks,
+                                views,
+                                comments,
+                                fullname,
+                                ttime_text))
 
 
         }

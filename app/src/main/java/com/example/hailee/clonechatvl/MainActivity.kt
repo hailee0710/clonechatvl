@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.support.v4.widget.SwipeRefreshLayout
 import android.widget.Toast
-import com.costum.android.widget.LoadMoreListView
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -16,7 +15,7 @@ var customadapter: CustomAdapter? = null
 
 class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
-    val urlGetData : String = "http://chatvl.com/api/trending.php"
+    val urlTrending : String = "http://chatvl.com/api/trending.php?time="
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,9 +27,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         lvmain. adapter= customadapter
 
         //Lay data
-        ReadContent().execute(urlGetData)
-
-        Toast.makeText(this, ""+ arrayPost, Toast.LENGTH_LONG).show()
+        ReadContent().execute(urlTrending)
 
         //Đăng ký sự kiện Swipe to refresh
         swiperefresh.setOnRefreshListener(this)
@@ -45,10 +42,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
         //su kien loadmore
         lvmain.setOnLoadMoreListener {
-
                 LoadDataTask().execute()
-
-
         }
 
     }
@@ -57,14 +51,13 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         swiperefresh.isRefreshing = true
 
         arrayPost.clear()
-        ReadContent().execute(urlGetData)
+        ReadContent().execute(urlTrending)
         customadapter?.notifyDataSetChanged()
-        Toast.makeText(this, ""+ arrayPost, Toast.LENGTH_LONG).show()
 
         swiperefresh.isRefreshing = false
     }
 
-    private inner class LoadDataTask : AsyncTask<Void, Void, Void>() {
+    private inner class LoadDataTask : AsyncTask<Void?, Void?, Void?>() {
 
         override fun doInBackground(vararg params: Void?): Void? {
             // Simulates a background task
@@ -76,14 +69,17 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
             } catch (e: InterruptedException) {
             }
 
-            ReadContent().execute(urlGetData)
 
             return null
 
         }
 
-        override fun onPostExecute(result: Void) {
-            Toast.makeText(this@MainActivity, "Loadmore completed!" , Toast.LENGTH_SHORT).show()
+        override fun onPostExecute(result: Void?) {
+           // Toast.makeText(this@MainActivity, ""+urlTrending+ next_time, Toast.LENGTH_SHORT).show()
+
+            ReadContent().execute(urlTrending+ next_time)
+
+            //Toast.makeText(this@MainActivity, "Loadmore completed!" , Toast.LENGTH_SHORT).show()
 
             // We need notify the adapter that the data have been changed
             customadapter?.notifyDataSetChanged()
