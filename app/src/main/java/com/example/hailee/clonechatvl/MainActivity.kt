@@ -8,6 +8,8 @@ import android.support.annotation.RequiresApi
 import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
 import android.view.View
+import android.widget.AbsListView
+import android.widget.ListView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONArray
@@ -57,6 +59,13 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         lvmain.setOnLoadMoreListener {
                 LoadDataTask().execute()
         }
+
+        //su kien nut backtotop
+        backtotopBtn.setOnClickListener { v: View? -> lvmain.smoothScrollToPosition(0)}
+
+
+
+
 
     }
 
