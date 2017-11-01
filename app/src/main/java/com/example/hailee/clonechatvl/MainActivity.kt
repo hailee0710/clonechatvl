@@ -5,12 +5,12 @@ import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.annotation.RequiresApi
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentTransaction
 import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
 import android.view.View
-import android.widget.AbsListView
-import android.widget.ListView
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -23,12 +23,13 @@ import java.net.ProtocolException
 import java.net.URL
 
 
+
 var customadapter: CustomAdapter? = null
 var arrayPost: ArrayList<Item> = ArrayList()
 var next_time: String = ""
 
 
-class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
+class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener{
 
     val urlTrending : String = "http://chatvl.com/api/trending.php?time="
 
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
         //Khoi tao adapter
         customadapter = CustomAdapter(this, arrayPost)
-        lvmain. adapter= customadapter
+        lvmain.adapter= customadapter
 
         //Lay data
         ReadContent().execute(urlTrending)
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
                                         view,
                                         position,
                                         id
-            ->  Toast.makeText(this, "Vi tri " + arrayPost.get(position).PID, Toast.LENGTH_SHORT).show()}
+            ->  callFragment(PostDetail())}
 
 
         //su kien loadmore
@@ -67,6 +68,13 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
 
 
+    }
+
+    fun callFragment(fragment: Fragment){
+        var fm : FragmentManager = supportFragmentManager
+        var ft: FragmentTransaction = fm.beginTransaction()
+
+        ft.replace(R.id.fmContent, fragment).commit()
     }
 
     override fun onRefresh() {
