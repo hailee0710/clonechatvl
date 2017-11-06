@@ -37,5 +37,5 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation project(':pulltorefresh-and-loadmore')
     implementation 'com.github.clans:fab:1.6.4'
-    implementation files('src/main/java/com/example/hailee/clonechatvl/YouTubeAndroidPlayerApi.jar')
+    implementation 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:1.0.0'
 }
