@@ -38,4 +38,5 @@ dependencies {
     implementation project(':pulltorefresh-and-loadmore')
     implementation 'com.github.clans:fab:1.6.4'
     implementation 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:1.0.0'
+    implementation 'com.jaedongchicken:ytplayer:1.4.2'
 }
