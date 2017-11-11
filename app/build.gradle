@@ -39,4 +39,5 @@ dependencies {
     implementation 'com.github.clans:fab:1.6.4'
     implementation 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:1.0.0'
     implementation 'com.jaedongchicken:ytplayer:1.4.2'
+    implementation files('/mnt/523A69BA3A699C2B/Study/Android/clonechatvl/libs/YouTubeAndroidPlayerApi.jar')
 }

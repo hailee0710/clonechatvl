@@ -3,21 +3,22 @@ package com.example.hailee.clonechatvl
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentTransaction
+import android.support.v7.app.ActionBar
+import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.jaedongchicken.ytplayer.JLog
-import com.jaedongchicken.ytplayer.YoutubePlayerView
-import com.jaedongchicken.ytplayer.model.YTParams
-import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer
-import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerInitListener
-import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView
+
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayer.*
+import com.google.android.youtube.player.YouTubePlayerFragment;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
+import com.google.android.youtube.player.YouTubePlayerView;
 import kotlinx.android.synthetic.main.fragment_post_detail.*
-import android.R.attr.duration
-import android.content.Context
-import android.support.v4.app.FragmentActivity
-import android.widget.Toast
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -29,39 +30,48 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class PostDetail : Fragment() {
+class PostDetail : YouTubePlayerSupportFragment() {
 
-    private var youTubePlayer: YouTubePlayer? = null
+    private var activePlayer : YouTubePlayer? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    fun newInstance(url : String) : PostDetail{
+        var postDetail : PostDetail = PostDetail()
 
-        youtube_player_view.initialize(object: YouTubePlayerInitListener {
-            override fun onInitSuccess(initializedYouTubePlayer: YouTubePlayer?) {
+        var bundle : Bundle = Bundle()
+        bundle.putString("url", url)
 
-            youTubePlayer = initializedYouTubePlayer!!
+        postDetail.setArguments(bundle)
 
-            initializedYouTubePlayer.addListener(object : AbstractYouTubePlayerListener() {
-                override fun onReady() {
-                    initializedYouTubePlayer.loadVideo("6JYIGclVQdw", 0f)
-                }
+        postDetail.init()
 
-            })
-        }}, true)
-
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_post_detail, container, false)
-
-
+        return postDetail
     }
 
+    private fun init(){
+        initialize("AIzaSyCORYM4N7aUrjXIzUj3yEg8EIMkSWWLLNE", object: OnInitializedListener{
+            override fun onInitializationSuccess(p0: Provider?, player: YouTubePlayer?, wasRestored: Boolean) {
+                activePlayer = player
+                activePlayer?.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
+                activePlayer?.setOnFullscreenListener { b -> false }
+
+                if (!wasRestored) {
+                    activePlayer?.loadVideo(getArguments().getString("url"), 0)
+
+                }
+            }
+
+            override fun onInitializationFailure(p0: Provider?, p1: YouTubeInitializationResult?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+        })
+    }
 
     override fun onDestroy() {
+        activePlayer?.release()
         super.onDestroy()
-
-        youtube_player_view.release()
     }
-
 
 
 }
+

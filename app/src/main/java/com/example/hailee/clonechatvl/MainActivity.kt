@@ -1,14 +1,15 @@
 package com.example.hailee.clonechatvl
 
+
 import android.os.AsyncTask
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.annotation.RequiresApi
-import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v4.widget.SwipeRefreshLayout
+
 import android.util.Log
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
@@ -53,7 +54,11 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener{
                                         view,
                                         position,
                                         id
-            ->  callFragment(PostDetail())}
+            ->   var myFragment : PostDetail = PostDetail().newInstance(arrayPost[position].youtube_key)
+                var fm : FragmentManager = supportFragmentManager
+                var ft: FragmentTransaction = fm.beginTransaction()
+                ft.replace(R.id.fmContent, myFragment).commit()
+                ft.addToBackStack("Frag1")}
 
 
         //su kien loadmore
@@ -64,17 +69,6 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener{
         //su kien nut backtotop
         backtotopBtn.setOnClickListener { v: View? -> lvmain.smoothScrollToPosition(0)}
 
-
-
-
-
-    }
-
-    fun callFragment(fragment: Fragment){
-        var fm : FragmentManager = supportFragmentManager
-        var ft: FragmentTransaction = fm.beginTransaction()
-
-        ft.replace(R.id.fmContent, fragment).commit()
     }
 
     override fun onRefresh() {
@@ -284,8 +278,13 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener{
         }
     }
 
-
-
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount == 0) {
+            super.onBackPressed()
+        } else {
+            supportFragmentManager.popBackStack()
+        }
+    }
 
 
 
